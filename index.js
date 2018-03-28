@@ -85,17 +85,20 @@ function createRock(x) {
      * If a rock collides with the DODGER,
      * we should call endGame()
      */
+    rock.style.top = `${top += 2}px`
+
       if (checkCollision(rock)) {
           console.log('checkCollision ran!')
-          endGame();
-          return
+          return endGame();
       }
     /**
      * Otherwise, if the rock hasn't reached the bottom of
      * the GAME, we want to move it again.
      */
-      if (top > 400) {
-          game.removeChild(rock)
+      if (top < GAME_HEIGHT) {
+          window.requestAnimationFrame(moveRock)
+      } else {
+          rock.remove()
       }
 
 
@@ -106,15 +109,8 @@ function createRock(x) {
   }
 
   // We should kick of the animation of the rock around here
-    function step() {
-        rock.style.top = `${top += 2}px`
-        moveRock()
-        if (top < 400) {
-            window.requestAnimationFrame(step)
-        }
-    }
 
-    window.requestAnimationFrame(step)
+    window.requestAnimationFrame(moveRock)
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision
   ROCKS.push(rock)
@@ -131,15 +127,10 @@ function createRock(x) {
  */
 function endGame() {
     console.log('end of game is running!')
-    gameInterval = null
 
-    var rocksToDelete = game.getElementsByClassName('rock')
+    clearInterval(gameInterval)
+    ROCKS.forEach(function(rock) {rock.remove()})
 
-    while(rocksToDelete[0]) {
-        console.log('deleting child')
-        game.removeChild(rocksToDelete[0]);
-        console.log('child deleted')
-    }
 
     window.removeEventListener('keydown', moveDodger)
 
