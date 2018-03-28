@@ -42,7 +42,7 @@ function checkCollision(rock) {
         return true
     } else if (rockLeftEdge < dodgerRightEdge && rockRightEdge > dodgerRightEdge) {
         return true
-    }   
+    }
         /**
                * Think about it -- what's happening here?
                * There's been a collision if one of three things is true:
@@ -52,7 +52,7 @@ function checkCollision(rock) {
                *    and the rock's right edge is < the DODGER's right edge;
                * 3. The rock's left edge is < the DODGER's right edge,
                *    and the rock's right edge is > the DODGER's right edge
-               */ 
+               */
   }
 }
 
@@ -71,7 +71,7 @@ function createRock(x) {
    * Now that we have a rock, we'll need to append
    * it to GAME and move it downwards.
    */
-  
+
   game.appendChild(rock)
 
   /**
@@ -86,7 +86,7 @@ function createRock(x) {
      * we should call endGame()
      */
     rock.style.top = `${top += 2}px`
-    
+
       if (checkCollision(rock)) {
           console.log('checkCollision ran!')
           return endGame();
@@ -100,7 +100,7 @@ function createRock(x) {
       } else {
           rock.remove()
       }
-      
+
 
     /**
      * But if the rock *has* reached the bottom of the GAME,
@@ -109,7 +109,7 @@ function createRock(x) {
   }
 
   // We should kick of the animation of the rock around here
- 
+
     window.requestAnimationFrame(moveRock)
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision
@@ -127,11 +127,11 @@ function createRock(x) {
  */
 function endGame() {
     console.log('end of game is running!')
-    
+
     clearInterval(gameInterval)
     ROCKS.forEach(function(rock) {rock.remove()})
 
-    
+
     window.removeEventListener('keydown', moveDodger)
 
     alert('YOU LOSE!')
@@ -148,12 +148,12 @@ function moveDodger(e) {
    * And be sure to use the functions declared below!
    */
     const code = e.which
-    
+
     if ([LEFT_ARROW, RIGHT_ARROW].indexOf(code) > -1) {
         e.preventDefault()
         e.stopPropagation()
     }
-    
+
     if (code === LEFT_ARROW) {
         moveDodgerLeft()
     } else if (code === RIGHT_ARROW) {
@@ -169,7 +169,7 @@ function moveDodgerLeft() {
    */
     var leftPosition = positionToInteger(dodger.style.left)
     function step() {
- 
+
         if (leftPosition > 0) {
             dodger.style.left = `${leftPosition -= 4}px`
         }
